@@ -1,0 +1,47 @@
+{
+    "/": [
+        {
+            "url": "/random",
+            "method": "get",
+            "response": [
+                {
+                    "status_code": 200,
+                    "body": {"name": "resp 0001"}
+                },
+                {
+                    "status_code": 200,
+                    "body": {"name": "0002"}
+                },
+                {
+                    "status_code": 400
+                }
+            ]
+        }
+    ],
+    "/api": [
+        {
+            "url": "/user/:id",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": {"name": "joão"}
+            }
+        },
+        {
+            "url": "/user/:id/test",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": {"name": "fake"}
+            }
+        },
+        {
+            "url": "/users",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": {}
+            }
+        }
+    ]
+}

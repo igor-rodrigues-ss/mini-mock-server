@@ -1,0 +1,35 @@
+{
+    "/": [
+        {
+            "url": "/users",
+            "method": "GET",
+            "response": [
+                {
+                    "status_code": 200,
+                    "body": [
+                        {"id": 1, "name": "Mario"},
+                        {"id": 2, "name": "Luigi"}
+                    ]
+                },
+                {
+                    "status_code": 400,
+                    "body": {"error": "Bad request custom message"}
+                }
+            ]
+        }
+    ],
+    "/api": [
+        {
+            "url": "/products/:id",
+            "method": "GET",
+            "response": {
+                "status_code": 200,
+                "body": {
+                    "id": 1,
+                    "name": "Product 001",
+                    "price": 115.51
+                }
+            }
+        }
+    ]
+}

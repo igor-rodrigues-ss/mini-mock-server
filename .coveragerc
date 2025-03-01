@@ -1,0 +1,3 @@
+[run]
+omit =
+    mini_mock_server/main.py
