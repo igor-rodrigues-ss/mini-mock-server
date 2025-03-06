@@ -12,7 +12,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Igor Rodrigues",
-    keywords="mock server restapi resful",
+    keywords="mock server restapi restful test development web api rest http",
     license="MIT",
     entry_points={
         "console_scripts": [
