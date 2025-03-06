@@ -12,6 +12,7 @@
                     ]
                 },
                 {
+                    "sleep": 1,
                     "status_code": 400,
                     "body": {"error": "Bad request custom message"}
                 }
