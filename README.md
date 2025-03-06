@@ -3,9 +3,13 @@
 A mini mock server for http requests.
 
 ## Features
-- Start a http mock server using the lib ```http.server```.
-- Delay requests to simulate slow endpoints.
-- Return random responses on the same route to simulate success or error cases.
+- Start an HTTP mock server without installing any web framework.
+- Delay requests to simulate slow endpoints using the *response.sleep* attribute.
+- Return random responses on the same route to simulate different kind of responses.
+
+## Important Notices
+
+> Currently, the ```mini-mock-server``` uses the ```http.server``` to start a new server, which is not recommended for production environments. The ```http.server``` only implements basic security checks. See the [official documentation](https://docs.python.org/3/library/http.server.html) for more information.
 
 ## Installation
 
@@ -15,7 +19,7 @@ pip install mini-mock-server
 
 ### Usage
 
-1. Create ```mock-api.json``` file to routes especifications.
+1. Create a ```mock-api.json``` file for route specifications.
 ```
 {
     "/": [
@@ -31,6 +35,7 @@ pip install mini-mock-server
                     ]
                 },
                 {
+                    "sleep": 1,
                     "status_code": 400,
                     "body": {"error": "Bad request custom message"}
                 }
@@ -53,7 +58,7 @@ pip install mini-mock-server
     ]
 }
 ```
-2. Start the mock server
+2. Start the mock server.
 
 ```shell
 mini-mock-server mock-api.json
