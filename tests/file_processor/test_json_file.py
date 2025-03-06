@@ -1,6 +1,7 @@
 import json
 import pytest
 
+from pathlib import Path
 from http import HTTPStatus
 
 from mini_mock_server.schemas import RouteSchema
@@ -76,7 +77,7 @@ def test_build_routes_fail_routes_isnt_a_list():
     assert "Routes must be a list" in str(exc.value)
 
 
-def test_read(tmp_path):
+def test_read(tmp_path: Path):
     route = {
         "api": [{"url": "/fake", "method": "GET", "response": {"status_code": HTTPStatus.OK.value}}]
     }
@@ -94,3 +95,14 @@ def test_read(tmp_path):
 def test_read_fail():
     with pytest.raises(ValueError):
         assert json_file.read("fake.txt")
+
+
+def test_read_fail_invalid_json(tmp_path: Path):
+    file = tmp_path / "fake.json"
+
+    file.write_text('{"test": "test",}')
+
+    with pytest.raises(ValueError) as exc:
+        assert json_file.read(str(file))
+
+    assert "on line 1 column 17" in str(exc.value)
