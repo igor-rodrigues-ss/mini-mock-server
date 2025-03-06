@@ -7,12 +7,12 @@ with open("README.md") as f:
 
 setup(
     name="mini-mock-server",
-    version="0.0.25",
+    version="0.0.26",
     description="A mini mock server for http requests",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Igor Rodrigues",
-    keywords="mock server restapi resful",
+    keywords="mock server restapi restful test development web api rest http",
     license="MIT",
     entry_points={
         "console_scripts": [
