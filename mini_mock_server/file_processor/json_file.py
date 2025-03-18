@@ -38,6 +38,10 @@ def _normalize_route(base_path: str, raw_route: RouteSchema) -> RouteSchema:
     return route
 
 
+def _route_id(route: RouteSchema):
+    return f'{route["method"].lower()}_{route["url"]}'
+
+
 def _build_routes(json_routes: dict[str, list[RouteSchema]]) -> list[RouteSchema]:
     built_routes = {}
 
@@ -51,9 +55,11 @@ def _build_routes(json_routes: dict[str, list[RouteSchema]]) -> list[RouteSchema
 
             route = _normalize_route(base_path, raw_route)
 
-            if route["url"] in built_routes:
+            route_id = _route_id(route)
+
+            if route_id in built_routes:
                 raise ValueError(f"You can't define duplicated routes: {route['url']}")
 
-            built_routes[route["url"]] = route
+            built_routes[route_id] = route
 
     return list(built_routes.values())

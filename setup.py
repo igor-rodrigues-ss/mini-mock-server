@@ -7,7 +7,7 @@ with open("README.md") as f:
 
 setup(
     name="mini-mock-server",
-    version="0.0.26",
+    version="0.0.27",
     description="A mini mock server for http requests",
     long_description=long_description,
     long_description_content_type="text/markdown",
