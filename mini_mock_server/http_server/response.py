@@ -7,7 +7,15 @@ from http.server import BaseHTTPRequestHandler
 from mini_mock_server.schemas import ResponseSchema
 
 
-DEFAULT_HEADER = {"Content-type": "application/json"}
+DEFAULT_HEADER = {
+    "Content-type": "application/json",
+}
+
+CORS_HEADERS = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "*",
+    "Access-Control-Allow-Headers": "*",
+}
 
 
 class Response:
@@ -19,7 +27,11 @@ class Response:
 
     def set_error(self, status_code: HTTPStatus):
         self._server.send_response(status_code.value)
-        self._server.send_header("Content-type", DEFAULT_HEADER["Content-type"])
+        headers = {**DEFAULT_HEADER, **CORS_HEADERS}
+
+        for k, v in headers.items():
+            self._server.send_header(k, v)
+
         self._server.end_headers()
 
         resp_data = self.to_json({"error": status_code.phrase})
@@ -30,6 +42,8 @@ class Response:
         self._server.send_response(response["status_code"])
 
         headers = response.get("headers", DEFAULT_HEADER)
+
+        headers = {**CORS_HEADERS, **headers}
 
         for k, v in headers.items():
             self._server.send_header(k, v)
