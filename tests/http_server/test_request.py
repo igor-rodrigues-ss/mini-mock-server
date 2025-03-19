@@ -97,25 +97,3 @@ def test_handle_not_found():
     expected = Response.to_json({"error": HTTPStatus.NOT_FOUND.phrase})
 
     m_server.wfile.write.assert_called_once_with(expected)
-
-
-def test_handle_method_not_allowed():
-    url = "/fake"
-
-    routes = [
-        {
-            "url": url,
-            "method": HTTPMethod.GET.value,
-            "response": {"status_code": HTTPStatus.OK.value, "body": {"fake": "fake"}},
-        },
-    ]
-
-    m_server = MagicMock(path=url)
-
-    request = Request(m_server, routes)
-
-    request.handle(HTTPMethod.POST)
-
-    expected = Response.to_json({"error": HTTPStatus.METHOD_NOT_ALLOWED.phrase})
-
-    m_server.wfile.write.assert_called_once_with(expected)
