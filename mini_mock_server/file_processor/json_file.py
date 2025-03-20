@@ -28,9 +28,9 @@ def _normalize_route(base_path: str, raw_route: RouteSchema) -> RouteSchema:
 
     url = route["url"].lstrip("/")
 
-    if url == "":
-        path = base_path
-    else:
+    path = base_path
+
+    if url != "":
         path = os.path.join(base_path, url)
 
     if not path.startswith("/"):
