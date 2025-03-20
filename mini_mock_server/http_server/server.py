@@ -3,6 +3,7 @@ from http import HTTPMethod
 from socketserver import ForkingMixIn
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
+from mini_mock_server.http_server.response import CORS_HEADERS
 from mini_mock_server.schemas import RouteSchema
 from mini_mock_server.http_server.request import Request
 from mini_mock_server.file_processor import json_file
@@ -24,20 +25,21 @@ class ServerHandler(BaseHTTPRequestHandler):  # pragma: no cover
 
         super().__init__(*args, **kwargs)
 
-    def do_GET(self):
-        self._request.handle(HTTPMethod.GET)
+    def parse_request(self) -> None:
+        super().parse_request()
 
-    def do_POST(self):
-        self._request.handle(HTTPMethod.POST)
+        http_method = HTTPMethod(self.command)
 
-    def do_PUT(self):
-        self._request.handle(HTTPMethod.PUT)
+        if http_method == HTTPMethod.OPTIONS:
+            self.send_response(200, "ok")
 
-    def do_PATCH(self):
-        self._request.handle(HTTPMethod.PATCH)
+            for k, v in CORS_HEADERS.items():
+                self.send_header(k, v)
 
-    def do_DELETE(self):
-        self._request.handle(HTTPMethod.DELETE)
+            self.end_headers()
+
+        else:
+            self._request.handle(http_method)
 
 
 def run_server(mock_fpath: str, host: str = "", port: int = 8000):

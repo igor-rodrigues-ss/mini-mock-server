@@ -36,8 +36,7 @@ class Request:
                 continue
 
             if route["method"].upper() != method.value:
-                self._response.set_error(HTTPStatus.METHOD_NOT_ALLOWED)
-                return
+                continue
 
             self._apply_functionality(route)
 
